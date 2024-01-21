@@ -1,12 +1,17 @@
 var secretColour;
 var secretColourCode;
 var mode = "rgb" //rgb or cmy
-var guessNum = 0;
+var guessNum;
 //called when 'play' pressed
 
 pickColour();
 
 function pickColour() {
+    //clear previous guesses
+    guessNum = 0;
+    const guessTable = document.getElementsByClassName("table")[0]
+    guessTable.innerHTML = ""
+
     const red = Math.floor(Math.random()*256);
     const green = Math.floor(Math.random()*256);
     const blue = Math.floor(Math.random()*256);
