@@ -1,6 +1,7 @@
 var secretColour;
 var secretColourCode;
 var mode = "rgb" //rgb or cmy
+var guessNum = 0;
 //called when 'play' pressed
 
 pickColour();
@@ -47,7 +48,8 @@ function checkColour(guessColour) {
 }
 
 function submitColour() {
-    // addNum("h");
+    guessNum += 1
+    addNum(guessNum);
 
     var guessColour
     if (mode === "rgb") {
@@ -101,16 +103,32 @@ function submitColour() {
     const cells = Array.from(table.childNodes).slice(-4, -1)
     console.log(cells)
 
+    let correctCount = 0;
+
     for (let i = 0; i<3; i++) {
         const thisCell = cells[i].childNodes[0];
     
-        if (diffsArr[i] <= 5) {
+        if (diffsArr[i] == 0) {
+            thisCell.style.backgroundColor = "rgb(120, 242, 179)"
+            correctCount += 1.1
+        } else if (diffsArr[i] <= 5) {
             thisCell.style.backgroundColor = "rgb(67, 182, 27)"
+            correctCount += 1
         } else if (diffsArr[i] <= 20) {
             thisCell.style.backgroundColor = "rgb(247, 196, 68)"
         }
     }
-    //style table to show grey/yellow/green
+
+    console.log(correctCount);
+
+    if (correctCount >= 3.3) {
+        console.log("Exact Win!!!")
+        //exactly correct! hide submit button, play again?
+    } else if (correctCount >= 3.0) {
+        console.log("Win!!!")
+        //disable/hide submit button
+        //close enough! do you want to continue for an exact match?
+    }
 }
 
 function addCell(val) {
@@ -144,7 +162,7 @@ function addNum(num) {
     const table = document.getElementsByClassName("table")[0]
 
     const tableCell = document.createElement("div")
-    tableCell.className = "grid-item"
+    tableCell.className = "grid-item guess-number"
 
     const text = document.createElement("p")
     text.innerText = num;
