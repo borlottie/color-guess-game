@@ -18,7 +18,10 @@ function pickColour() {
     secretColourCode = `rgb(${red}, ${green}, ${blue})`;
 
     const swatch = document.getElementById("swatch")
-    swatch.style.backgroundColor = secretColourCode;
+    swatch.style.background = `linear-gradient(90deg, ${secretColourCode} 50%, white 50%)`;
+
+    const miniswatch = document.getElementsByClassName("compare")[0]
+    miniswatch.style.background = `linear-gradient(90deg, ${secretColourCode} 50%, white 50%)`
     
     const playButton = document.getElementsByClassName("playButton")[0];
     playButton.style.display = "none";
@@ -88,10 +91,8 @@ function submitColour() {
 
     addSwatch(secretColourCode, guessColour)
 
-    //TEMP code
-    const lastGuess = document.getElementById("TEMP_lastGuess")
-    lastGuess.style.backgroundColor = guessColour;
-    lastGuess.style.borderColor = secretColourCode;
+    const swatch = document.getElementById("swatch")
+    swatch.style.background = `linear-gradient(90deg, ${secretColourCode} 50%, ${guessColour} 50%)`
     console.log(guessColour);
 
     //check colour accuracy
