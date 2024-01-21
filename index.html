@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Colour Guessing Game</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <!-- Colour code guessing game -->
+    <div class="content" width="min">
+        <div class="swatches">
+            <div>
+                <h3>Target:</h3>
+                <div class="swatch" id="swatch"></div>
+            </div>
+            <!-- TEMP -->
+            <div>
+                <h3>Last guess:</h3>
+                <div class="swatch" id="TEMP_lastGuess"></div>
+            </div>
+        </div>
+
+        <div class="grid-container">
+            <!-- rows of guesses go here -->
+            <!-- <div class="grid-item">
+                <h4>#</h4>
+            </div> -->
+            <div class="grid-item">
+                <div class="miniswatch"></div>
+                <input type="number" id="red" class="numberGuess" max="255" min="0">
+            </div>
+            <div class="grid-item">
+                <div class="miniswatch"></div>
+                <input type="number" id="green" class="numberGuess" max="255" min="0">
+            </div>
+            <div class="grid-item">
+                <div class="miniswatch"></div>
+                <input type="number" id="blue" class="numberGuess" max="255" min="0">
+            </div>
+            <div class="grid-item">
+                <div class="miniswatch compare"></div>
+            </div>
+
+            <div class="grid-container table"></div>
+        </div>
+        <button class="submit" onclick="submitColour()">Guess</button>
+
+        <button class="playButton" onclick="pickColour()">Play Again</button>
+    </div>
+</body>
+
+</html>
