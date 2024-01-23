@@ -1,17 +1,48 @@
 var secretColour;
 var secretColourCode;
-var mode = "rgb" //rgb or cmy
+var mode = "rgb"; //rgb or cmy or hsl
 var guessNum;
-//called when 'play' pressed
+var prevWin;
 
+//enter event listeners
+const inputs = document.getElementsByClassName("grid-container")[0].getElementsByTagName("input")
+for (let i = 0; i<inputs.length; i++) {
+    inputs[i].addEventListener("keyup", function(event) {
+        if (event.key === "Enter") {
+            const submit = document.getElementsByClassName("submit")[0]
+            submit.click();
+        }
+    })
+}
+
+//called when 'play' pressed
 pickColour();
 
 function pickColour() {
-    //clear previous guesses
+    //clear previous games and guesses
+    const continueButton = document.getElementsByClassName("continue")[0]
+    continueButton.style.display = "none";
+
+    const winMessage = document.getElementById("winMessage")
+    winMessage.style.display = "none"
+
+    const submit = document.getElementsByClassName("submit")[0]
+    submit.style.display = "block"
+
+    prevWin = false;
+
     guessNum = 0;
     const guessTable = document.getElementsByClassName("table")[0]
     guessTable.innerHTML = ""
 
+    const inputs = document.getElementsByClassName("grid-container")[0].getElementsByTagName("input")
+    console.log(inputs)
+
+    for (let i = 0; i<inputs.length; i++) {
+        inputs[i].value = ""
+    }
+
+    //pick colour
     const red = Math.floor(Math.random()*256);
     const green = Math.floor(Math.random()*256);
     const blue = Math.floor(Math.random()*256);
@@ -128,13 +159,48 @@ function submitColour() {
     console.log(correctCount);
 
     if (correctCount >= 3.3) {
-        console.log("Exact Win!!!")
         //exactly correct! hide submit button, play again?
-    } else if (correctCount >= 3.0) {
+        const winMessage = document.getElementById("winMessage")
+        winMessage.innerText = "Exact Match: You Win!!!!"
+        winMessage.style.display = "block"
+
+        const submit = document.getElementsByClassName("submit")[0]
+        submit.style.display = "none"
+
+        const replay = document.getElementsByClassName("playButton")[0]
+        replay.style.display = "block";
+
+    } else if (correctCount >= 3.0 && !prevWin) {
         console.log("Win!!!")
-        //disable/hide submit button
-        //close enough! do you want to continue for an exact match?
+        const winMessage = document.getElementById("winMessage")
+        winMessage.innerText = "Close Enough: You Win!"
+        winMessage.style.display = "block"
+
+        const submit = document.getElementsByClassName("submit")[0]
+        submit.style.display = "none"
+
+        const continueButton = document.getElementsByClassName("continue")[0]
+        continueButton.style.display = "block";
+
+        const replay = document.getElementsByClassName("playButton")[0]
+        replay.style.display = "block";
     }
+}
+
+//continue until exact match
+function continueGame() {
+    prevWin = true
+    const continueButton = document.getElementsByClassName("continue")[0]
+    continueButton.style.display = "none";
+
+    const winMessage = document.getElementById("winMessage")
+    winMessage.style.display = "none"
+
+    const submit = document.getElementsByClassName("submit")[0]
+    submit.style.display = "block"
+
+    const replay = document.getElementsByClassName("playButton")[0]
+    replay.style.display = "none";
 }
 
 function addCell(val) {
@@ -175,4 +241,23 @@ function addNum(num) {
 
     tableCell.appendChild(text)
     table.appendChild(tableCell)
+}
+
+
+function setMode(newMode) {
+    let newIds = []
+    if (newMode == "rgb") {
+        mode = "rgb"
+        newIds = ["red", "green", "blue"]
+    } else if (newMode == "cmy") {
+        mode = "cmy"
+        newIds = ["cyan", "magenta", "yellow"]
+    } else { //error - invalid mode
+        return
+    }
+
+    const inputs = document.getElementsByClassName("grid-container")[0].getElementsByTagName("input")
+    for (let i = 0; i<inputs.length; i++) {
+        inputs[i].id = newIds[i]
+    }
 }
