@@ -260,10 +260,15 @@ function addNum(num) {
 }
 
 
-function setMode(newMode) {
+function setMode(newMode = "") {
     let newIds = []
     let newMaximums = []
     let newSteps;
+
+    if (newMode === "") {
+        setMode(getMode())
+        return
+    }
 
     if (newMode == "rgb") {
         mode = "rgb"
@@ -287,15 +292,31 @@ function setMode(newMode) {
         inputs[i].max = newMaximums[i]
         inputs[i].step = newSteps[i]
     }
-    console.log(inputs)
 
     pickColour()
+    console.log("Set mode to "+mode)
 }
 
-function TEMP_switchMode() {
-    if (mode == "rgb") {
-        setMode("cmy")
-    } else {
-        setMode("rgb")
-    }
+//menu stuff
+function getMode() {
+    const mode = document.querySelector('input[name="mode"]:checked').value;
+    return mode || "rgb"
 }
+
+function menu() {
+    const menu = document.getElementById("menuBg")
+    menu.style.display = "block"
+  }
+  
+  function closeMenu() {
+    const menu = document.getElementById("menuBg")
+    const messageDisplayer = document.getElementById("change-message")
+    menu.style.display = "none"
+    messageDisplayer.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    if (event.target.id == "menuBg") {
+      closeMenu()
+    }
+  }

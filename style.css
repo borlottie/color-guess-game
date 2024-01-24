@@ -19,7 +19,7 @@
     text-align: center;
 }
 
-.swatches > h3 {
+.swatches>h3 {
     margin: 5px 30px;
 }
 
@@ -60,7 +60,7 @@ button[disabled] {
 }
 
 .grid-container.table {
-    width:100%;
+    width: 100%;
     grid-column: 1 / span 5;
     row-gap: 0px;
     overflow: scroll;
@@ -85,18 +85,23 @@ button[disabled] {
 .miniswatch:has(+ #red) {
     background-color: rgb(255, 0, 0);
 }
+
 .miniswatch:has(+ #green) {
     background-color: rgb(0, 255, 0);
 }
+
 .miniswatch:has(+ #blue) {
     background-color: rgb(0, 0, 255);
 }
+
 .miniswatch:has(+ #cyan) {
     background-color: rgb(0, 255, 255);
 }
+
 .miniswatch:has(+ #magenta) {
     background-color: rgb(255, 0, 255);
 }
+
 .miniswatch:has(+ #yellow) {
     background-color: rgb(255, 255, 0);
 }
@@ -112,7 +117,7 @@ button[disabled] {
     width: 50px;
 }
 
-.grid-item > h4 {
+.grid-item>h4 {
     text-align: center;
     margin: 9px 1px;
 }
@@ -129,7 +134,7 @@ button[disabled] {
 .numberGuess {
     border: 1.5px solid black;
     border-radius: 3px;
-    margin:5px 14px 5px 1px;
+    margin: 5px 14px 5px 1px;
     height: 20px;
     padding-left: 3px;
     width: 5ch;
@@ -155,4 +160,58 @@ input.numberGuess:invalid {
 
 .grid-item.guess-number p {
     background-color: white;
+}
+
+/* Menu styles */
+#menu {
+    position: fixed;
+    /* takes it out of regular flow */
+}
+
+#menubox {
+    /* display: none; */
+    background-color: white;
+    width: 200px;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    border: 1.5px solid black;
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 16px;
+}
+
+#menuBg {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.01);
+}
+
+label {
+    display: block;
+}
+
+.menu-content h2 {
+    margin: 0 auto;
+}
+
+.close {
+    color: red;
+    float: right;
+    top: -10px;
+    position: relative;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #d90605;
+    text-decoration: none;
+    cursor: pointer;
 }

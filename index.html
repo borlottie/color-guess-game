@@ -10,15 +10,31 @@
 </head>
 
 <body>
-    <!-- Colour code guessing game -->
-    <div class="content" width="min">
-        <!-- TEMP!!! -->
-        <button style="position: absolute; left:10px; top:10px;" onclick="TEMP_switchMode()">Switch Mode</button>
-        <div class="swatches">
-                <h3>Target</h3>
-                <h3>Last guess</h3>
+    <!-- Menu -->
+    <button id="menu" onclick="menu()">Mode</button>
+
+    <div id="menuBg">
+        <div id="menubox">
+            <div class="menu-content">
+                <span class="close" onclick="closeMenu()">&times;</span>
+                <h2>Mode</h2>
+                <label>
+                    <input type="radio" id="rgb-mode" name="mode" value="rgb" checked onchange="setMode()">RGB (Mix to
+                    white)</label>
+                <label>
+                    <input type="radio" id="cmy-mode" name="mode" value="cmy" onchange="setMode()">CMY (Mix to
+                    black)</label>
+            </div>
         </div>
-            <div class="wideswatch" id="swatch"></div>
+    </div>
+
+    <!-- Game page -->
+    <div class="content" width="min">
+        <div class="swatches">
+            <h3>Target</h3>
+            <h3>Last guess</h3>
+        </div>
+        <div class="wideswatch" id="swatch"></div>
         <div class="grid-container">
             <!-- rows of guesses go here -->
             <div class="grid-item">
