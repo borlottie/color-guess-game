@@ -67,7 +67,7 @@ function pickColour() {
         "green":255-magentaScaled,
         "blue":255-yellowScaled
     }
-    secretColourCode = `rgb(${red}, ${green}, ${blue})`;
+    secretColourCode = `rgb(${255-cyanScaled}, ${255-magentaScaled}, ${255-yellowScaled})`;
     }
 
     const swatch = document.getElementById("swatch")
@@ -290,4 +290,12 @@ function setMode(newMode) {
     console.log(inputs)
 
     pickColour()
+}
+
+function TEMP_switchMode() {
+    if (mode == "rgb") {
+        setMode("cmy")
+    } else {
+        setMode("rgb")
+    }
 }
