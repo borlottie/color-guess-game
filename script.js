@@ -43,6 +43,7 @@ function pickColour() {
     }
 
     //pick colour
+    if (mode == "rgb") {
     const red = Math.floor(Math.random()*256);
     const green = Math.floor(Math.random()*256);
     const blue = Math.floor(Math.random()*256);
@@ -52,6 +53,22 @@ function pickColour() {
         "blue":blue,
     }
     secretColourCode = `rgb(${red}, ${green}, ${blue})`;
+    } else if (mode == "cmy") {
+        const cyan = Math.floor(Math.random()*201)/2;
+        const magenta = Math.floor(Math.random()*201)/2;
+        const yellow = Math.floor(Math.random()*201)/2;
+
+        const cyanScaled = Math.round(cyan*2.55)
+        const magentaScaled = Math.round(magenta*2.55)
+        const yellowScaled = Math.round(yellow*2.55)
+
+    secretColour = {
+        "red":255-cyanScaled,
+        "green":255-magentaScaled,
+        "blue":255-yellowScaled
+    }
+    secretColourCode = `rgb(${255-cyanScaled}, ${255-magentaScaled}, ${255-yellowScaled})`;
+    }
 
     const swatch = document.getElementById("swatch")
     swatch.style.background = `linear-gradient(90deg, ${secretColourCode} 50%, white 50%)`;
@@ -96,9 +113,9 @@ function submitColour() {
         const green = document.getElementById("green")
         const blue = document.getElementById("blue")
     
-        const redVal = (red.value | 0)
-        const greenVal = (green.value | 0)
-        const blueVal = (blue.value | 0)
+        const redVal = (red.value || 0)
+        const greenVal = (green.value || 0)
+        const blueVal = (blue.value || 0)
 
         addCell(redVal)
         addCell(greenVal)
@@ -107,22 +124,21 @@ function submitColour() {
         guessColour = `rgb(${redVal}, ${greenVal}, ${blueVal})`
         console.log(guessColour)
 
-    } else if (mode === "cmy") {
+    } else if (mode === "cmy") { //a bit janky (not always possible to get exact matches) but clean code at least
         const cyan = document.getElementById("cyan")
         const magenta = document.getElementById("magenta")
         const yellow = document.getElementById("yellow")
 
-        const cyanVal = (cyan.value | 0)
-        const magentaVal = (magenta.value | 0)
-        const yellowVal = (yellow.value | 0)
+        const cyanVal = Math.round(Number(cyan.value || 0)*2.55)
+        const magentaVal = Math.round(Number(magenta.value || 0)*2.55)
+        const yellowVal = Math.round(Number(yellow.value || 0)*2.55)
 
-        addCell(cyanVal)
-        addCell(magentaVal)
-        addCell(yellowVal)
+        addCell((cyan.value || 0)+"%")
+        addCell((magenta.value || 0)+"%")
+        addCell((yellow.value || 0)+"%")
 
-        guessColour = `rgb(${255 - (cyan.value | 0)}, ${255 - (magenta.value | 0)}, ${255 - (yellow.value | 0)})`
+        guessColour = `rgb(${255 - cyanVal}, ${255 - magentaVal}, ${255 - yellowVal})`
         console.log(guessColour)
-
     }
 
     addSwatch(secretColourCode, guessColour)
@@ -246,12 +262,21 @@ function addNum(num) {
 
 function setMode(newMode) {
     let newIds = []
+    let newMaximums = []
+    let newSteps;
+
     if (newMode == "rgb") {
         mode = "rgb"
         newIds = ["red", "green", "blue"]
+        newMaximums = [255, 255, 255]
+        newSteps = [1, 1, 1]
+
     } else if (newMode == "cmy") {
         mode = "cmy"
         newIds = ["cyan", "magenta", "yellow"]
+        newMaximums = [100, 100, 100]
+        newSteps = [0.5, 0.5, 0.5]
+
     } else { //error - invalid mode
         return
     }
@@ -259,7 +284,18 @@ function setMode(newMode) {
     const inputs = document.getElementsByClassName("grid-container")[0].getElementsByTagName("input")
     for (let i = 0; i<inputs.length; i++) {
         inputs[i].id = newIds[i]
+        inputs[i].max = newMaximums[i]
+        inputs[i].step = newSteps[i]
     }
+    console.log(inputs)
 
     pickColour()
+}
+
+function TEMP_switchMode() {
+    if (mode == "rgb") {
+        setMode("cmy")
+    } else {
+        setMode("rgb")
+    }
 }
