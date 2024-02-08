@@ -72,14 +72,14 @@ button[disabled] {
     height: 22px;
     border: 1.5px solid black;
     border-radius: 3px;
-    margin: 5px 1px 5px 13px;
+    margin: 5px 2px 5px 13px;
     display: inline-block;
 }
 
 /* will need a rejig */
 .miniswatch.compare {
     width: 44px;
-    margin: 5px 1px;
+    margin: 5px 2px;
 }
 
 .miniswatch:has(+ #red) {
@@ -125,6 +125,7 @@ button[disabled] {
 /*the guessing row */
 .grid-item:has(.numberGuess) {
     grid-row: 1;
+    display: flex;
 }
 
 .grid-item:has(.compare) {
@@ -134,12 +135,10 @@ button[disabled] {
 .numberGuess {
     border: 1.5px solid black;
     border-radius: 3px;
-    margin: 5px 14px 5px 1px;
+    margin: 5px 14px 5px 2px;
     height: 20px;
     padding-left: 3px;
     width: 5ch;
-    position: relative;
-    top: -14px;
 }
 
 input.numberGuess:invalid {
@@ -162,23 +161,17 @@ input.numberGuess:invalid {
     background-color: white;
 }
 
-/* Menu styles */
-#menu {
-    position: fixed;
-    /* takes it out of regular flow */
-}
-
 #menubox {
     /* display: none; */
     background-color: white;
-    width: 200px;
-    position: fixed;
-    top: 15px;
-    left: 15px;
+    width: 400px;
+    height: min-content;
+
     border: 1.5px solid black;
     border-radius: 5px;
     padding: 15px;
     font-size: 16px;
+    margin: 40px auto;
 }
 
 #menuBg {
@@ -189,7 +182,7 @@ input.numberGuess:invalid {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.01);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 label {
